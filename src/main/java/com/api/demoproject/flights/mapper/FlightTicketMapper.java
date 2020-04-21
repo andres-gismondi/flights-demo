@@ -1,8 +1,11 @@
 package com.api.demoproject.flights.mapper;
 
+import com.api.demoproject.flights.dto.ItineraryIdResponse;
 import com.api.demoproject.flights.dto.FlightTicketDto;
 import com.api.demoproject.flights.model.FlightTicket;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class FlightTicketMapper {
@@ -31,7 +34,12 @@ public class FlightTicketMapper {
         flightTicket.setPassengerName(flightTicketDto.getPassengerName());
         flightTicket.setPrice(flightTicketDto.getPrice());
         flightTicket.setHasLuggageStorage(flightTicketDto.isHasLuggageStorage());
+        flightTicket.setItineraryId(UUID.randomUUID().toString());
         return flightTicket;
+    }
+
+    public ItineraryIdResponse mapToFlightId(String token) {
+        return new ItineraryIdResponse(token);
     }
 
 }

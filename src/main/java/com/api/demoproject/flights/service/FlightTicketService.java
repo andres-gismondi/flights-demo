@@ -2,12 +2,15 @@ package com.api.demoproject.flights.service;
 
 import com.api.demoproject.application.exceptions.DataAccessException;
 import com.api.demoproject.application.exceptions.EntityNotFoundException;
+import com.api.demoproject.flights.dto.ItineraryIdResponse;
 import com.api.demoproject.flights.dto.FlightTicketDto;
 import com.api.demoproject.flights.mapper.FlightTicketMapper;
 import com.api.demoproject.flights.model.FlightTicket;
 import com.api.demoproject.flights.repository.IFlightTicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class FlightTicketService {
@@ -21,23 +24,23 @@ public class FlightTicketService {
         this.flightTicketMapper = flightTicketMapper;
     }
 
-    public FlightTicketDto getFligh(Long id) throws EntityNotFoundException {
-        FlightTicket flightTicket = this.flightTicketRepository
-                .findById(id)
+    public FlightTicketDto getFligh(String id) throws EntityNotFoundException {
+        FlightTicket flightTicket = Optional.of(this.flightTicketRepository
+                .findByItineraryId(id))
                 .orElseThrow(() -> new EntityNotFoundException("Entity with id "+ id + " not found"));
-
         return this.flightTicketMapper.mapToDto(flightTicket);
     }
 
-    public void createFlightTicket(FlightTicketDto flightTicketDto) throws DataAccessException {
+    public ItineraryIdResponse createFlightTicket(FlightTicketDto flightTicketDto) throws DataAccessException {
         FlightTicket newFlightTicket = new FlightTicket();
         newFlightTicket = this.flightTicketMapper.mapToModel(flightTicketDto, newFlightTicket);
         this.saveFlight(newFlightTicket);
+        return this.flightTicketMapper.mapToFlightId(newFlightTicket.getItineraryId());
     }
 
-    private FlightTicket saveFlight(FlightTicket flightTicket) throws DataAccessException {
+    private void saveFlight(FlightTicket flightTicket) throws DataAccessException {
         try{
-            return this.flightTicketRepository.save(flightTicket);
+            this.flightTicketRepository.save(flightTicket);
         } catch (Exception e) {
             throw new DataAccessException("Error saving flight ticket", e);
         }

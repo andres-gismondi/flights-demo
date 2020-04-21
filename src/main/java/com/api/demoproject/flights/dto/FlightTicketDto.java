@@ -1,19 +1,28 @@
 package com.api.demoproject.flights.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class FlightTicketDto {
-
+    @JsonProperty("departure_date")
     private LocalDate departureDate;
+    @JsonProperty("arrival_date")
     private LocalDate arrivalDate;
+    @JsonProperty("origin_city")
     private String originCity;
+    @JsonProperty("destination_city")
     private String destinationCity;
+    @JsonProperty("passenger_name")
     private String passengerName;
+    @JsonProperty("has_luggage_storage")
     private boolean hasLuggageStorage;
     private BigDecimal price;
+    @JsonProperty("departure_time")
     private LocalTime departureTime;
+    @JsonProperty("arrival_time")
     private LocalTime arrivalTime;
 
     public LocalDate getDepartureDate() {

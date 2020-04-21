@@ -40,6 +40,9 @@ public class FlightTicket {
     @Column(name = "arrival_time")
     private LocalTime arrivalTime;
 
+    @Column(name = "itinerary_id")
+    private String itineraryId;
+
     public FlightTicket() {
     }
 
@@ -121,5 +124,13 @@ public class FlightTicket {
 
     public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public String getItineraryId() {
+        return itineraryId;
+    }
+
+    public void setItineraryId(String itineraryId) {
+        this.itineraryId = itineraryId;
     }
 }
