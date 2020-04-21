@@ -19,7 +19,7 @@ public class FlightsController {
 
     @RequestMapping(value = "/{flight-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FlightTicketDto> getFlights(@PathVariable("flight-id") String id) throws EntityNotFoundException {
-        FlightTicketDto flightTicketDto = this.flightTicketService.getFligh(id);
+        FlightTicketDto flightTicketDto = this.flightTicketService.getFlight(id);
         return ResponseEntity.ok(flightTicketDto);
     }
 
