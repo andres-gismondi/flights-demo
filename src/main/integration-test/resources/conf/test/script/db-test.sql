@@ -1,4 +1,4 @@
-CREATE TABLE `flight_ticket` (
+CREATE TABLE IF NOT EXISTS `flight_ticket` (
          `id` INT(11) NOT NULL AUTO_INCREMENT,
          `departure_date` DATE NOT NULL,
          `arrival_date` DATE NOT NULL,
