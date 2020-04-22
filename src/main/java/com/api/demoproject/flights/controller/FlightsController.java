@@ -17,13 +17,15 @@ public class FlightsController {
     @Autowired
     private FlightTicketService flightTicketService;
 
-    @RequestMapping(value = "/{flight-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    //@RequestMapping(value = "/{flight-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/{flight-id}")
     public ResponseEntity<FlightTicketDto> getFlights(@PathVariable("flight-id") String id) throws EntityNotFoundException {
         FlightTicketDto flightTicketDto = this.flightTicketService.getFlight(id);
         return ResponseEntity.ok(flightTicketDto);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    //@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<ItineraryIdResponse> createFlightTicket(@RequestBody FlightTicketDto flightTicketDto) throws DataAccessException {
         ItineraryIdResponse flightId = this.flightTicketService.createFlightTicket(flightTicketDto);
         return ResponseEntity.ok(flightId);

@@ -26,10 +26,10 @@ public class FlightTicketService {
 
     public FlightTicketDto getFlight(String id) throws EntityNotFoundException {
 
-        return Optional.of(this.flightTicketRepository
+        return Optional.ofNullable(this.flightTicketRepository
                 .findByItineraryId(id))
                 .map(this.flightTicketMapper::mapToDto)
-                .orElseThrow(() -> new EntityNotFoundException("Entity with id "+ id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Itinerary id ["+ id + "] not found"));
     }
 
     public ItineraryIdResponse createFlightTicket(FlightTicketDto flightTicketDto) throws DataAccessException {
