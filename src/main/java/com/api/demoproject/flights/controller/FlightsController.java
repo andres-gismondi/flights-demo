@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/flights")
 public class FlightsController {
@@ -23,7 +25,7 @@ public class FlightsController {
     }
 
     @PostMapping
-    public ResponseEntity<ItineraryIdResponse> createFlightTicket(@RequestBody FlightTicketDto flightTicketDto) throws DataAccessException {
+    public ResponseEntity<ItineraryIdResponse> createFlightTicket(@RequestBody @Valid FlightTicketDto flightTicketDto) throws DataAccessException {
         ItineraryIdResponse flightId = this.flightTicketService.createFlightTicket(flightTicketDto);
         return ResponseEntity.ok(flightId);
     }
